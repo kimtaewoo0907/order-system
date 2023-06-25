@@ -9,6 +9,7 @@
 
   <div>
     <div>
+<!--orderSearch라는 객체에 memberName, orderStatus라는 변수를 담아 서버로 다시 던져주는 것-->
       <form th:object="${orderSearch}" class="form-inline">
         <div class="form-group mb-2">
           <input type="text" th:field="*{memberName}" class="form-control" placeholder="회원명"/>
@@ -16,7 +17,8 @@
         <div class="form-group mx-sm-1 mb-2">
           <select th:field="*{orderStatus}" class="form-control">
             <option value="">주문상태</option>
-            <option th:each="status : ${T(com.example.domain.OrderStatus).values()}"
+<!--            T문법 : OrderStatus라는 클래스에서 values를 한 것 -> OrderStauts의 enum값 목록-->
+            <option th:each="status : ${T(com.example.demo.orders.domain.OrderStatus).values()}"
                     th:value="${status}"
                     th:text="${status}">option
             </option>
@@ -45,7 +47,7 @@
         <td th:text="${order.stockQuantity}"></td>
         <td th:text="${order.item.name}"></td>
         <td th:text="${order.status}"></td>
-        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.createDate}"></td>
         <td>
           <a th:if="${order.status.name() == 'ORDER'}" href="#" th:href="'javascript:cancel('+${order.id}+')'"
              class="btn btn-danger">CANCEL</a>

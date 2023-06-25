@@ -25,6 +25,7 @@ public class ItemService {
     }
 
     public Item findById(Long myId) {
+
         return itemRepository.findById(myId).orElse(null);
     }
 
@@ -39,5 +40,7 @@ public class ItemService {
         Item item = itemRepository.findById(myId).orElse(null);
         itemRepository.delete(item);
     }
+
+
 
 }

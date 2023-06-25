@@ -6,6 +6,7 @@ import com.example.demo.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,16 +32,27 @@ public class Orders {
     @JoinColumn(nullable = false)
     private Member member;
 
-    private String status;
+    // EnumType.STRING을 주지 않으면 DB에 순서숫자가 들어가게 된다
+    // 즉, 0,1 등의 숫자 값이 디폴트
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     private LocalDateTime createDate;
 
     @Builder
-    public Orders(Long stockQuantity, Item item, Member member) {
+    public Orders(Long stockQuantity, Item item, Member member) throws Exception {
         this.stockQuantity = stockQuantity;
         this.item = item;
         this.member = member;
+        this.status = OrderStatus.ORDER;
         this.createDate = LocalDateTime.now();
+        // Orders 객체 안에 Item객체를 OneToOne으로 가지고 있기 때문에, item객체에 quantity를
+        // 변경시키는 removeQuantity를 호출하고, Orders만 save하여도 Item테이블에 item객체가 변경이 된다
+        this.item.removeQuantity(stockQuantity.intValue());
+    }
+
+    public void updateCancelStatus() {
+        this.status = OrderStatus.CANCEL;
     }
 
 }
