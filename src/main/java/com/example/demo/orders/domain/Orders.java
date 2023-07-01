@@ -20,14 +20,8 @@ public class Orders {
     private Long id;
 
     // 수량은 별개로 필요
-    private Long stockQuantity;
 
-    // 상품명 -> item_id로 대체가능
-    @OneToOne
-    @JoinColumn(nullable = false)
-    private Item item;
-
-    // 주문자(회원) 정보
+    // 주문자(회원) 정보 1:n
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Member member;
@@ -37,18 +31,17 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @Column
     private LocalDateTime createDate;
 
     @Builder
     public Orders(Long stockQuantity, Item item, Member member) throws Exception {
-        this.stockQuantity = stockQuantity;
-        this.item = item;
         this.member = member;
         this.status = OrderStatus.ORDER;
         this.createDate = LocalDateTime.now();
         // Orders 객체 안에 Item객체를 OneToOne으로 가지고 있기 때문에, item객체에 quantity를
         // 변경시키는 removeQuantity를 호출하고, Orders만 save하여도 Item테이블에 item객체가 변경이 된다
-        this.item.removeQuantity(stockQuantity.intValue());
+//        this.item.removeQuantity(stockQuantity.intValue());
     }
 
     public void updateCancelStatus() {

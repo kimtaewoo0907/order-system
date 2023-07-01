@@ -33,8 +33,6 @@
       <tr>
         <th>#</th>
         <th>회원명</th>
-        <th>주문수량</th>
-        <th>상품명</th>
         <th>상태</th>
         <th>일시</th>
         <th></th>
@@ -42,10 +40,10 @@
       </thead>
       <tbody>
       <tr th:each="order : ${orders}">
-        <td th:text="${order.id}"></td>
+        <td>
+          <a th:href="@{/orderitems(id = ${order.id})}" th:text="${order.id}"></a>
+        </td>
         <td th:text="${order.member.name}"></td>
-        <td th:text="${order.stockQuantity}"></td>
-        <td th:text="${order.item.name}"></td>
         <td th:text="${order.status}"></td>
         <td th:text="${order.createDate}"></td>
         <td>

@@ -3,6 +3,8 @@ package com.example.demo.orders.controller;
 import com.example.demo.item.controller.ItemDto;
 import com.example.demo.item.repository.ItemRepository;
 import com.example.demo.member.repository.MemberRepository;
+import com.example.demo.order_item.domain.OrderItem;
+import com.example.demo.order_item.domain.OrderItemDto;
 import com.example.demo.orders.domain.Orders;
 import com.example.demo.orders.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +38,12 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public String orderCreate(OrderDto orderDto) throws Exception {
-        Orders orders1 = Orders.builder()
-                .stockQuantity(orderDto.getCount())
-                .item(itemRepository.findById(orderDto.getItemId()). orElse(null))
-                .member(memberRepository.findById(orderDto.getMemberId()).orElse(null))
-                .build();
-        orderService.create(orders1);
+    public String orderCreate(OrderItemDto orderItemDto) throws Exception {
+//        Orders orders1 = Orders.builder()
+//                .member(memberRepository.findById(orderDto.getMemberId()).orElse(null))
+//                .build();
+        // orderitem까지 고려하여 로직이 복잡해지므로, service에서 로직처리
+        orderService.create(orderItemDto);
         return "redirect:/";
     }
 
