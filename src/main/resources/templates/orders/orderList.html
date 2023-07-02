@@ -10,7 +10,7 @@
   <div>
     <div>
 <!--orderSearch라는 객체에 memberName, orderStatus라는 변수를 담아 서버로 다시 던져주는 것-->
-      <form th:object="${orderSearch}" class="form-inline">
+      <form th:object="${orderSearch}" action="/orders" class="form-inline">
         <div class="form-group mb-2">
           <input type="text" th:field="*{memberName}" class="form-control" placeholder="회원명"/>
         </div>

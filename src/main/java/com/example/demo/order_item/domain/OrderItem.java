@@ -1,7 +1,6 @@
 package com.example.demo.order_item.domain;
 
 import com.example.demo.item.domain.Item;
-import com.example.demo.member.domain.Member;
 import com.example.demo.orders.domain.Orders;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,5 +41,6 @@ public class OrderItem {
         this.createDate = LocalDateTime.now();
         this.item.removeQuantity(stockQuantity.intValue());
     }
+
 
 }

@@ -15,6 +15,7 @@
         <th>도시</th>
         <th>주소</th>
         <th>우편번호</th>
+        <th>주문 건수</th>
       </tr>
       </thead>
       <tbody>
@@ -22,9 +23,14 @@
         <td th:text="${member.id}"></td>
         <td th:text="${member.name}"></td>
         <td th:text="${member.email}"></td>
-        <td th:text="${member.Address.city}"></td>
-        <td th:text="${member.Address.street}"></td>
-        <td th:text="${member.Address.zipcode}"></td>
+        <td th:text="${member.city}"></td>
+        <td th:text="${member.street}"></td>
+        <td th:text="${member.zipcode}"></td>
+<!--        타임리프에서 자바 문법으로 구할 수 있음 ex) size()-->
+        <td>
+          <a th:href="@{/orders/member(id = ${member.id})}" th:text="${member.orderCount}"></a>
+        </td>
+
       </tr>
       </tbody>
     </table>

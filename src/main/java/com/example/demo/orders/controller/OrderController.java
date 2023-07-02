@@ -10,10 +10,7 @@ import com.example.demo.orders.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -55,9 +52,17 @@ public class OrderController {
         return "orders/orderList";
     }
 
+    @GetMapping("/orders/member")
+    public String orderFindByMember(@RequestParam("id")Long myId, Model model, OrderSearch orderSearch) {
+        List<Orders> orders = orderService.findByMemberId(myId);
+        model.addAttribute("orders", orders);
+        return "orders/orderList";
+    }
+
     @PostMapping("orders/{id}/cancel")
     public String orderCancel(@PathVariable("id") Long myId) {
         orderService.cancel(myId);
         return "redirect:/orders";
     }
+
 }

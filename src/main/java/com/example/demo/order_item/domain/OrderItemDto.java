@@ -12,5 +12,4 @@ public class OrderItemDto {
     private Long memberId;
     private List<Long> itemId;
     private List<Long> count;
-
 }

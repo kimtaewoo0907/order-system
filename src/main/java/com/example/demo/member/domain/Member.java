@@ -1,10 +1,12 @@
 package com.example.demo.member.domain;
 
+import com.example.demo.order_item.domain.OrderItem;
 import com.example.demo.orders.domain.Orders;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Or;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -40,6 +42,7 @@ public class Member {
 
     @Column
     private LocalDateTime createDate;
+
 
     @Builder
     public Member(String name, String email, String password, Address address) {

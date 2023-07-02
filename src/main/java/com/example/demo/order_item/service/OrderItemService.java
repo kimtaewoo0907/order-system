@@ -4,6 +4,7 @@ import com.example.demo.item.repository.ItemRepository;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.order_item.domain.OrderItem;
 import com.example.demo.order_item.repository.OrderItemRepository;
+import com.example.demo.orders.domain.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,15 +32,10 @@ public class OrderItemService {
         return orderItems;
     }
 
-    public void cancel(Long myId) {
-        OrderItem orderItem1 = orderItemRepository.findById(myId).orElse(null);
-        orderItem1.getItem().addQuantity(orderItem1.getStockQuantity().intValue());
-        orderItemRepository.save(orderItem1);
-    }
-
     public List<OrderItem> findByOrderId(Long order_id) {
         List<OrderItem> orderItems = orderItemRepository.findByOrdersId(order_id);
         return orderItems;
     }
+
 
 }

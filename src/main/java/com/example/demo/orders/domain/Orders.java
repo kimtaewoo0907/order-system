@@ -1,12 +1,10 @@
 package com.example.demo.orders.domain;
 
 import com.example.demo.item.domain.Item;
-import com.example.demo.member.domain.Address;
 import com.example.demo.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

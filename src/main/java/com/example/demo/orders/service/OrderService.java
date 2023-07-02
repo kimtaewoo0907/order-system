@@ -60,9 +60,20 @@ public class OrderService {
         return orders;
     }
 
+
+    public List<Orders> findByMemberId(Long myId) {
+        List<Orders> orders = orderRepository.findByMember(memberRepository.findById(myId).orElse(null));
+        return orders;
+    }
+
+
     public void cancel(Long myId) {
         Orders order1 = orderRepository.findById(myId).orElse(null);
         order1.updateCancelStatus();
+        List<OrderItem> orderItems = orderItemRepository.findByOrdersId(myId);
+        for(OrderItem orderItem : orderItems) {
+            orderItem.getItem().addQuantity(orderItem.getStockQuantity().intValue());
+        }
 //        order1.getItem().addQuantity(order1.getStockQuantity().intValue());
         orderRepository.save(order1);
     }
